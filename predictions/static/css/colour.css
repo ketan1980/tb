@@ -1,0 +1,47 @@
+
+
+.top-nav-collapse {
+	background-color: 	rgba(255,255,255,0.95);
+}
+
+.navbar-nav  {
+	color: black !important;
+	background-color: 	rgba(191,255,0,0.7) !important;
+
+}
+.navbar-nav a {
+	color: black !important;
+
+}
+
+@media (max-width: 768px) {
+  .navbar, .navbar-nav {
+		background-color: 	rgba(255,255,255,0.9) !important;
+	}
+
+
+
+}
+
+.navbar-custom ul.nav ul.dropdown-menu li a:hover {
+	color: #BFFF00;
+}
+
+
+.bg-skin {
+	background: #BFFF00;
+}
+
+form#contact-form input:focus,form#contact-form select:focus,form#contact-form textarea:focus {
+	border-color: #BFFF00;
+}
+
+footer {
+    background-color: #BFFF00;
+}
+
+.btn-skin {
+  color: #fff;
+  background-color: #BFFF00;
+  border-color: #BFFF00;
+}
