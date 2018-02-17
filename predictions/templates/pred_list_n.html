@@ -1,0 +1,147 @@
+{% extends 'base_t.html' %}
+{% load odds_filter %}
+
+{% block predictions_test %}
+<h3>PREDICTIOsdadNS</h3>
+  {% endblock %}
+
+{% block predictions %}
+
+<section id="predictions" class="predictions_sec" >
+  <div class="container wow bounceInDown" data-wow-delay="0.5s">
+
+      <div class="col-md-12 col-sm-12 col-xs-12">
+
+
+          <div class="slogan">
+            <h2>PREDICTIONS</h2>
+            <i class="fab fa-phoenix-framework"></i>
+          </div>
+
+
+
+              {% regroup preds by NAME_T as pred_list %}
+<div class="container">
+<div class="btn-group">
+  <button button type="button" class="btn btn-default btn-pred dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Mens<span class="caret"></span>
+   </button>
+              <ul class="dropdown-menu" >
+              {% for pred in pred_list %}
+                <li class="{% if forloop.first %} active {% endif %}" data-toggle="tab" href="#{{ pred.grouper|cut:" " }}"> <a>{{ pred.grouper }}</a></li>
+              {% endfor %}
+              </ul>
+
+</div>
+<div class="btn-group">
+              <button button type="button" class="btn btn-default btn-pred dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Womens<span class="caret"></span>
+               </button>
+                          <ul class="dropdown-menu" >
+
+                            <li > <a href="">Coming soon</a></li>
+
+                          </ul>
+</div>
+<!-- <ul class="nav nav-tabs">
+  {% for pred in pred_list %}
+    <li class="{% if forloop.first %} active {% endif %}" data-toggle="tab" href="#{{ pred.grouper|cut:" " }}"> <a  >{{ pred.grouper }}</a></li>
+  {% endfor %}
+</ul> -->
+<div class=" tab-content">
+              {% for pred in pred_list %}
+              <div class="tab-pane fade {% if forloop.first %} in active {% endif %}" id="{{ pred.grouper|cut:" " }}" role="tabpanel">
+                          <table class="prediction-table" width="100%" >
+
+
+                              <thead>
+                              <td colspan=5 class="title_head">{{ pred.grouper }}</td>
+                              </thead>
+
+                            <tr>
+                              <thead>
+                              <td>Date</td>
+                              <td>Player 1</td>
+                              <td>Player 2</td>
+                              <td class="tool_tip" ><a class="tool_tip" data-toggle="tooltip" data-placement="top" title="Latest available odds. These will be highlighted where the model sees value.">Player 1 Odds
+                                <i class="fas fa-info-circle"></i></a></td>
+                              <td class="tool_tip"><a class="tool_tip" data-toggle="tooltip" data-placement="top" title="Latest available odds. These will be highlighted where the model sees value.">Player 2 Odds
+                                <i class="fas fa-info-circle"></i></a>
+                              </td>
+                              </tr>
+                            </thead>
+                             <tbody>
+                          {% for match in pred.list %}
+                            <tr >
+                              <td rowspan="2">{{ match.DATE_R }}</td>
+                              <td>{{ match.Player1 }}
+
+                              </td>
+
+                              <td>{{ match.Player2 }}
+                                </td>
+                                <td rowspan="2"><div>{% if match.Player1|checkOdds:match.Player2 == 'NA' %}
+                                  <div {% if match.playerprobp1|checkvalue:match.K1 == 'Y' %}  class="highlightcell" {% endif %}>
+                                        {{ match.K1|floatformat:2 }}
+                                    {% else %}
+                                    <div  {% with var_one=match.Player1|checkOdds:match.Player2 %}
+                                      {% if match.playerprobp1|checkvalue:var_one == 'Y' %}  class="highlightcell" {% endif %} {% endwith %}>
+                                    MB: {{ match.Player1|checkOdds:match.Player2|floatformat:2 }}
+                                    {% endif %}
+
+                                  </div>
+                                </td>
+                                <td rowspan="2">
+
+                                  {% if match.Player2|checkOdds:match.Player1 == 'NA' %}
+                                  <div {% if match.playerprobp2|checkvalue:match.K2 == 'Y' %}  class="highlightcell" {% endif %}>
+                                        {{ match.K2|floatformat:2 }}
+                                    {% else %}
+
+                                  <div  {% with var_one=match.Player2|checkOdds:match.Player1 %}
+                                    {% if match.playerprobp2|checkvalue:var_one == 'Y' %}  class="highlightcell" {% endif %} {% endwith %}>
+                                    MB: {{ match.Player2|checkOdds:match.Player1|floatformat:2 }}
+                                    {% endif %}
+
+                                  </div>
+                                </td>
+
+                              </tr>
+                              <tr style="height:10px">
+
+    <td colspan="2" >
+<a  data-toggle="tooltip" data-placement="top" title="Tennis Brain's modeled probablity of the players winning the match.">
+      <div class="progress-bar progress-bar-one" role="progressbar" style="width:{{ match.playerprobp1|conpercent }}%">
+        {{ match.playerprobp1|conpercent|floatformat:0 }}%
+      </div>
+      <div class="progress-bar progress-bar-two" role="progressbar" style="width:{{ match.playerprobp2|conpercent }}%">
+        {{ match.playerprobp2|conpercent|floatformat:0 }}%
+      </div>
+</a>
+
+    </td>
+  </tr>
+                              {% endfor %}
+                            </tbody>
+                            </table>
+
+
+                      </div>
+
+
+
+
+
+                  {% endfor %}
+
+
+
+
+
+</div>
+</div>
+        </div>
+      </div>
+      </section>
+
+  {% endblock %}
