@@ -1,5 +1,6 @@
 {% extends 'base_t.html' %}
 {% load odds_filter %}
+{% load static %}
 
 {% block predictions_test %}
 <h3>PREDICTIOsdadNS</h3>
@@ -9,13 +10,9 @@
 
 <section id="predictions" class="predictions_sec" >
   <div class="container wow bounceInDown" data-wow-delay="0.5s">
-
-      <div class="col-md-12 col-sm-12 col-xs-12">
-
-
           <div class="slogan">
             <h2>PREDICTIONS</h2>
-            <i class="fab fa-phoenix-framework"></i>
+
           </div>
 
 
@@ -73,7 +70,7 @@
                              <tbody>
                           {% for match in pred.list %}
                             <tr >
-                              <td rowspan="2">{{ match.DATE_R }}</td>
+                              <td rowspan="4">{{ match.DATE_R }}</td>
                               <td>{{ match.Player1 }}
 
                               </td>
@@ -109,8 +106,9 @@
                               </tr>
                               <tr style="height:10px">
 
+
     <td colspan="2" >
-<a  data-toggle="tooltip" data-placement="top" title="Tennis Brain's modeled probablity of the players winning the match.">
+<a  data-toggle="tooltip" data-placement="top"  title="Tennis Brain's modeled probablity of the players winning the match.">
       <div class="progress-bar progress-bar-one" role="progressbar" style="width:{{ match.playerprobp1|conpercent }}%">
         {{ match.playerprobp1|conpercent|floatformat:0 }}%
       </div>
@@ -121,6 +119,22 @@
 
     </td>
   </tr>
+<td hidden></td>
+  <tr>
+<td colspan="4" >
+      <a role="button" data-toggle="collapse" data-parent="#predictionsasd" href="#{{ match.id }}" aria-expanded="true" aria-controls="{{ match.id }}" class="trigger collapsed" onclick='getspider({{ match.id }})'>
+        Spider Chart  <i class="fas fa-bug fa-lg fa-spin"></i>
+      </a>
+
+  <div id="{{ match.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="spiders">
+
+      <i class="fas fa-bug"></i>
+
+  </div>
+</td>
+  </tr>
+
+
                               {% endfor %}
                             </tbody>
                             </table>
@@ -142,6 +156,12 @@
 </div>
         </div>
       </div>
+
       </section>
+
+
+
+
+
 
   {% endblock %}

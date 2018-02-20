@@ -7,7 +7,7 @@
     jQuery("#load").delay(100).fadeOut("slow");
   });
 
-// to remove active and add to new one from dropdown
+// to remove active and add to new one from dropdown -----------KT
 $('.dropdown-menu li').click(function () {
     $('li').removeClass('active');
     $(this).addClass("active");
@@ -20,6 +20,14 @@ $('.dropdown-menu li').click(function () {
     } else {
       $(".navbar-fixed-top").removeClass("top-nav-collapse");
     }
+  });
+
+
+// to remove active and add to new one from dropdown -----------KT
+  $("[data-collapse-group]").on('show.bs.collapse', function () {
+    var $this = $(this);
+    var thisCollapseAttr = $this.attr('data-collapse-group');
+    $("[data-collapse-group='" + thisCollapseAttr + "']").not($this).collapse('hide');
   });
 
   //jQuery for page scrolling feature - requires jQuery Easing plugin

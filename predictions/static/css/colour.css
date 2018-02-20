@@ -37,7 +37,7 @@ form#contact-form input:focus,form#contact-form select:focus,form#contact-form t
 }
 
 footer {
-    background-color: #BFFF00;
+    background-color: rgba(177,248,43,0.9);
 }
 
 .btn-skin {
