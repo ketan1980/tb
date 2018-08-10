@@ -1,0 +1,108 @@
+
+<div class="stats-container">
+
+  <table  id="playerstats{{ stats.MatchID }}" class="playerstats_table profile_table" >
+
+    <tr>
+      <thead>
+        <td>*Since 2010</td>
+<td>{{ stats.Player1 }}</td>
+        <td>{{ stats.Player2 }}</td>
+      </thead>
+    </tr>
+    <tr>
+      <td>Country</td>
+      <td>{{ stats.Country_Player1 }}</td>
+      <td>{{ stats.Country_Player2 }}</td>
+    </tr>
+    <tr>
+      <td><a role="button" data-toggle="collapse" href="#{{ stats.MatchID }}histrank" class="intablink" aria-expanded="true" aria-controls="{{ stats.MatchID }}" class="trigger collapsed" onclick='gethrank({{ stats.MatchID }})'>
+        Ranking <span class="caret"></a></td>
+      <td>{{ stats.Rank_Player1 }}</td>
+      <td>{{ stats.Rank_Player2 }}</td>
+    </tr>
+    <tr>
+      <td>Age</td>
+      <td>{{ stats.Age_Player1|floatformat:0   }}</td>
+      <td>{{ stats.Age_Player2|floatformat:0 }}</td>
+    </tr>
+
+    {% if stats.Gender == 'Men' %}
+    <tr>
+      <td>Height</td>
+      <td>{{ stats.Height_Player1}} cm</td>
+      <td>{{ stats.Height_Player2}} cm</td>
+    </tr>
+    <tr>
+      <td>Weight</td>
+      <td>{{ stats.Weight_Player1 }} kg</td>
+      <td>{{ stats.Weight_Player2 }} kg</td>
+    </tr>
+    <tr>
+      <td>Hand</td>
+      <td>{{ stats.Hand_Player1 }}</td>
+      <td>{{ stats.Hand_Player2 }}</td>
+    </tr>
+    <tr>
+      <td>Backhand</td>
+      <td>{{ stats.Backhand_Player1 }}</td>
+      <td>{{ stats.Backhand_Player2 }}</td>
+    </tr>
+    <tr>
+      <td>ATP Titles</td>
+      <td>{{ stats.ATPTitles_Player1 }}</td>
+      <td>{{ stats.ATPTitles_Player2 }}</td>
+    </tr>
+    <tr>
+      <td>Challenger Titles</td>
+      <td>{{ stats.ChalTitles_Player1 }}</td>
+      <td>{{ stats.ChalTitles_Player2 }}</td>
+    </tr>
+    <tr>
+      <td>5 match form</td>
+      <td><a role="button" data-toggle="collapse" href="#{{ stats.MatchID }}{{ stats.ID_P1 }}pastmatches" class="intablink" aria-expanded="true" aria-controls="{{ stats.MatchID }}" class="trigger collapsed" onclick='getpastmatches({{ stats.MatchID }},{{ stats.ID_P1 }})'>
+      {{ stats.Last5matches_Player1 }}<span class="caret"></a></td>
+      <td><a role="button" data-toggle="collapse" href="#{{ stats.MatchID }}{{ stats.ID_P2 }}pastmatches" class="intablink" aria-expanded="true" aria-controls="{{ stats.MatchID }}" class="trigger collapsed" onclick='getpastmatches({{ stats.MatchID }},{{ stats.ID_P2 }})'>
+      {{ stats.Last5matches_Player2}}<span class="caret"></a></td>
+    </tr>
+    <tr>
+      <td><a role="button" data-toggle="collapse" href="#{{ stats.MatchID }}hhmatches" class="intablink" aria-expanded="true" aria-controls="{{ stats.MatchID }}" class="trigger collapsed" onclick='gethhmatches({{ stats.MatchID }})'>
+      		Head to Head<span class="caret"></a></td>
+      <td>{{ stats.Head2HeadWins_Player1 }}</td>
+      <td>{{ stats.Head2HeadWins_Player2 }}</td>
+    </tr>
+
+    {% else %}
+    <tr>
+      <td>Hand</td>
+      <td>{{ stats.Hand_Player1 }}</td>
+      <td>{{ stats.Hand_Player2 }}</td>
+    </tr>
+    <tr>
+      <td>WTA Titles</td>
+      <td>{{ stats.WTATitles_Player1 }}</td>
+      <td>{{ stats.WTATitles_Player2 }}</td>
+    </tr>
+    <tr>
+      <td>S125 Titles</td>
+      <td>{{ stats.S125kTitles_Player1 }}</td>
+      <td>{{ stats.S125kTitles_Player2 }}</td>
+    </tr>
+    <tr>
+      <td>5 match form</td>
+      <td><a role="button" data-toggle="collapse" href="#{{ stats.MatchID }}{{ stats.ID_P1 }}pastmatches" class="intablink" aria-expanded="true" aria-controls="{{ stats.MatchID }}" class="trigger collapsed" onclick='getpastmatches({{ stats.MatchID }},{{ stats.ID_P1 }})'>
+      {{ stats.Last5matches_Player1 }}<span class="caret"></a></td>
+      <td><a role="button" data-toggle="collapse" href="#{{ stats.MatchID }}{{ stats.ID_P2 }}pastmatches" class="intablink" aria-expanded="true" aria-controls="{{ stats.MatchID }}" class="trigger collapsed" onclick='getpastmatches({{ stats.MatchID }},{{ stats.ID_P2 }})'>
+      {{ stats.Last5matches_Player2}}<span class="caret"></a></td>
+    </tr>
+    <tr>
+      <td><a role="button" data-toggle="collapse" href="#{{ stats.MatchID }}hhmatches" class="intablink" aria-expanded="true" aria-controls="{{ stats.MatchID }}" class="trigger collapsed" onclick='gethhmatches({{ stats.MatchID }})'>
+      		Head to Head<span class="caret"></a></td>
+      <td>{{ stats.Head2HeadWins_Player1 }}</td>
+      <td>{{ stats.Head2HeadWins_Player2 }}</td>
+    </tr>
+    {% endif %}
+  </table>
+
+</div>
+<!-- Custom Theme JavaScript -->

@@ -1,0 +1,207 @@
+{% extends 'base_t.html' %}
+{% load TBfilters %}
+{% load static %}
+
+
+
+{% block meta_headings %}
+{% regroup preds by Tournament as pred_list %}
+<title>Tennis Brain | Finding value in the world of tennis betting through machine learning and artificial intelligence.</title>
+<meta name="description" content="Finding value in the world of professional tennis betting through machine learning and artificial intelligence. Currently analysing ATP and WTA tour tournamnents: {% for pred in pred_list %}{{ pred.grouper }}, {% endfor %}">
+<meta name="keywords" content="atp, wta, tennis predictions, tennis betting, tennis rankings, atp tennis">
+{% endblock %}
+
+{% block predictions %}
+{% regroup preds_m by Tournament as pred_list_m %}
+{% regroup preds_w by Tournament as pred_list_w %}
+{% regroup preds by Gen_Tourn as pred_list %}
+
+<section id="predictions" class="predictions_sec" >
+	<div class="container wow bounceInDown" data-wow-delay="0.5s">
+		<div class="slogan">
+			<h2>PREDICTIONS</h2>
+		</div>
+
+		<div class="container">
+			<div class="btn-group">
+				<button button type="button" class="btn btn-default btn-pred dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Mens
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" >
+              {% for pred in pred_list_m %}
+
+					<li class="{% if forloop.first %} active {% endif %}" data-toggle="tab" href="#Mens{{ pred.grouper|RemoveSpecial }}">
+						<a>{{ pred.grouper }}</a>
+					</li>
+            {% empty %}
+            <li>No Matches</li>
+              {% endfor %}
+
+				</ul>
+			</div>
+			<div class="btn-group">
+				<button button type="button" class="btn btn-default btn-pred dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Womens
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" >
+          {% for pred in pred_list_w %}
+
+      <li class="{% if forloop.first %} active {% endif %}" data-toggle="tab" href="#Womens{{ pred.grouper|RemoveSpecial }}">
+        <a>{{ pred.grouper }}</a>
+      </li>
+      {% empty %}
+      <li>No Matches</li>
+          {% endfor %}
+				</ul>
+			</div>
+			<!-- <ul class="nav nav-tabs">
+  {% for pred in pred_list_m %}
+    <li class="{% if forloop.first %} active {% endif %}" data-toggle="tab" href="#{{ pred.grouper|cut:" " }}"><a  >{{ pred.grouper }}</a></li>
+  {% endfor %}
+</ul> -->
+			<div class=" tab-content">
+    {{ Odds }}
+              {% for pred in pred_list %}
+
+				<div class="tab-pane fade {% if forloop.first %} in active {% endif %}" id="{{ pred.grouper|RemoveSpecial }}" role="tabpanel">
+					<table class="prediction-table" width="100%" >
+						<tr>
+							<thead>
+								<td style="display:none"></td>
+								<td colspan=5 class="title_head">{{ pred.grouper }}</td>
+							</thead>
+						</tr>
+						<tr>
+							<thead>
+								<td>Date</td>
+								<td>Player 1</td>
+								<td class="tool_tip" >
+									<a class="tool_tip" data-toggle="tooltip" data-placement="top" title="Latest available odds. These will be highlighted where the model sees value.">Player 1 Odds
+
+										<i class="fas fa-info-circle"></i>
+									</a>
+								</td>
+								<td class="tool_tip">
+									<a class="tool_tip" data-toggle="tooltip" data-placement="top" title="Latest available odds. These will be highlighted where the model sees value.">Player 2 Odds
+
+										<i class="fas fa-info-circle"></i>
+									</a>
+								</td>
+								<td>Player 2</td>
+							</tr>
+						</thead>
+						<tbody>
+                {% for match in pred.list %}
+
+                          {% if match.Player1|checkOdds:match.Player2 == 'NA' %}
+                          {% define_odds match.Odds_Player1|floatformat:2 as oddsOne %}
+                          {% else %}
+                          {% define_odds match.Player1|checkOdds:match.Player2|floatformat:2 as oddsOne %}
+                          {% endif %}
+
+                          {% if match.Player2|checkOdds:match.Player1 == 'NA' %}
+                          {% define_odds match.Odds_Player2|floatformat:2 as oddsTwo %}
+                          {% else %}
+                          {% define_odds match.Player2|checkOdds:match.Player1|floatformat:2 as oddsTwo %}
+                          {% endif %}
+
+                          {% if match.Probability_Player1|checkvalue:oddsOne == 'Y' %}
+                          {% define_var "highlightcell" as oddsOneClass %}
+                          {% else %}
+                          {% define_var "" as oddsOneClass %}
+                          {% endif %}
+
+                          {% if match.Probability_Player2|checkvalue:oddsTwo == 'Y' %}
+                          {% define_var "highlightcell" as oddsTwoClass %}
+                          {% else %}
+                          {% define_var "" as oddsTwoClass %}
+                          {% endif %}
+
+
+							<tr>
+								<td rowspan="3">{{ match.dateM}}</td>
+								<td rowspan="3" class="{{ oddsOneClass }}">{% if match.Probability_Player1|checkvalue:oddsOne == 'Y' %}
+                  <i class="icon-tb_ball"  style="color:rgba(191,255,0,1);"> </i> {% endif %}
+                  {{ match.Player1 }}</td>
+								<td rowspan="1" class="{{ oddsOneClass }}">
+                     {{ oddsOne }} 	</td>
+								<td rowspan="1" class="{{ oddsTwoClass }}">	{{ oddsTwo }}
+	</td>
+								<td td rowspan="3" class="{{ oddsTwoClass }}">{{ match.Player2 }}
+                  {% if match.Probability_Player2|checkvalue:oddsTwo == 'Y' %}
+                  <i class="icon-tb_ball"  style="color:rgba(153,0,77,1);"> </i> {% endif %}   </td>
+							</tr>
+										<tr style="height:10px">
+											<td colspan="2" >
+												<a  data-toggle="tooltip" data-placement="top"  title="Tennis Brain's modeled probablity of the players winning the match.">
+													<div class="progress-bar progress-bar-one" role="progressbar" style="width:{{ match.Probability_Player1|conpercent }}%">
+        {{ match.Probability_Player1|conpercent|floatformat:0 }}%
+                          </div>
+													<div class="progress-bar progress-bar-two" role="progressbar" style="width:{{ match.Probability_Player2|conpercent }}%">
+        {{ match.Probability_Player2|conpercent|floatformat:0 }}%
+                          </div>
+												</a>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="1" >
+												<a role="button" data-toggle="collapse" href="#{{ match.MatchID }}ps" class="intablink" aria-expanded="true" aria-controls="{{ match.MatchID }}" class="trigger collapsed" onclick='getstats({{ match.MatchID }})'>
+        Profile
+													<span class="caret">
+													</a>
+												</td>
+												<td colspan="1" >
+													<a role="button" data-toggle="collapse" href="#{{ match.MatchID }}spider" class="intablink" aria-expanded="true" aria-controls="{{ match.MatchID }}" class="trigger collapsed" onclick='getspider({{ match.MatchID }})'>
+  Attributes
+														<span class="caret">
+														</a>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="5" >
+														<div id="{{ match.MatchID }}spider" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+														<div id="{{ match.MatchID }}ps" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+														<div id="{{ match.MatchID }}hhmatches" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+														<div id="{{ match.MatchID }}histrank" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+													</td>
+												</tr>
+
+
+                              {% endfor %}
+
+											</tbody>
+										</table>
+									</div>
+
+                    {% empty %}
+
+                    <h4 style="margin-top:5px; color:white;">No Predictions</h4>
+
+                  {% endfor %}
+
+
+
+
+
+
+								</div>
+							</div>
+						</div>
+				</section>
+
+
+
+
+
+
+  {% endblock %}

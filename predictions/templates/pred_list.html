@@ -1,0 +1,301 @@
+{% extends 'base_t.html' %}
+{% load TBfilters %}
+{% load static %}
+
+
+
+{% block meta_headings %}
+{% regroup preds by Tournament as pred_list %}
+<title>Tennis Brain | Finding value in the world of tennis betting through machine learning and artificial intelligence.</title>
+<meta name="description" content="Finding value in the world of professional tennis betting through machine learning and artificial intelligence. Currently analysing ATP and WTA tour tournamnents: {% for pred in pred_list %}{{ pred.grouper }}, {% endfor %}">
+<meta name="keywords" content="atp, wta, tennis predictions, tennis betting, tennis rankings, atp tennis">
+{% endblock %}
+
+
+
+{% block predictions %}
+
+{% regroup preds_m by Tournament as pred_list_m %}
+{% regroup preds_w by Tournament as pred_list_w %}
+{% regroup preds by Gen_Tourn as pred_list %}
+
+<section id="predictions" class="predictions_sec" >
+	<div class="container wow bounceInDown" data-wow-delay="0.5s">
+		<div class="slogan">
+			<h2>PREDICTIONS</h2>
+		</div>
+
+		<div class="container">
+
+    		<div class=" tab-content">
+    	  		<a role="button" data-toggle="collapse" href="#userguide" class="guidelink" aria-expanded="true" class="trigger collapsed">
+        Guide <i class="fas fa-plus-circle"></i>
+
+			</a>
+					<div id="userguide" class="panel-collapse collapse guidediv" role="tabpanel"  data-collapse-group="userguide">
+
+						<p>The predictions table displays a list of upcoming matches. The bars at the centre of the table show the predicted probability of each player winning based on our models.</p>
+						<p>Above the bars the outright odds from <a class="bluelink" href="http://wlmatchbook.adsrv.eacdn.com/C.ashx?btag=a_3256b_2932c_&amp;affid=2111&amp;siteid=3256&amp;adid=2932&amp;c=&amp;asclurl=https://www.matchbook.com/" target="Matchbook">Matchbook</a> are shown where a market is available. We use the Matchbook as they offer the lowest commisions and have a good API which allows for easy automation. Of course if you are using a different bookmaker/exchange please double check the odds on their services.</p>
+						<p>A simple way to use the table is to multiply the odds by the probability. A number greater than 1 represents "value". </p>
+						<p>A tennis ball <i class="icon-tb_ball"style="color:rgba(191,255,0,1);"></i><i class="icon-tb_ball"  style="color:rgba(153,0,77,1);"></i> next the player's name is a trade that has been picked based on it having "value" and filtered for certain features such as better recent form.</P>
+						<p>In the hypothetical example below, its been identifed that there is value in betting on Michael Mmoh. Our model has predicted that their is only a 32% chance of him winning which roughly would equate to odds of 3.13. However on Matchbook they are 3.94 which represents value. Additionally Michael Mmoh has been in better form than his opponent.</p>
+
+
+						<table class="prediction-table" width="100%" align="center" >
+							<tbody>
+								<tr>
+									<thead>
+										<td>Date</td>
+										<td>Player 1</td>
+										<td class="tool_tip" >
+											<a class="tool_tip" data-toggle="tooltip" data-placement="top" title="Latest available odds. These will be highlighted where the model sees value.">Player 1 Odds
+												<i class="fas fa-info-circle"></i>
+											</a>
+										</td>
+										<td class="tool_tip">
+											<a class="tool_tip" data-toggle="tooltip" data-placement="top" title="Latest available odds. These will be highlighted where the model sees value.">Player 2 Odds
+												<i class="fas fa-info-circle"></i>
+											</a>
+										</td>
+										<td>Player 2</td>
+
+								</thead>
+								</tr>
+								<tr>
+									<td rowspan="3"></td>
+									<td rowspan="3" class="">
+	                  Gilles Muller</td>
+
+
+									<td rowspan="1" class="">
+	                     <a href="http://wlmatchbook.adsrv.eacdn.com/C.ashx?btag=a_3256b_2932c_&amp;affid=2111&amp;siteid=3256&amp;adid=2932&amp;c=&amp;asclurl=https://www.matchbook.com/events/" target="Matchbook">1.32 <i class="fa fa-caret-right"></i></a> </td>
+									<td rowspan="1" class="">	<a href="http://wlmatchbook.adsrv.eacdn.com/C.ashx?btag=a_3256b_2932c_&amp;affid=2111&amp;siteid=3256&amp;adid=2932&amp;c=&amp;asclurl=https://www.matchbook.com/events/" target="Matchbook">3.94 <i class="fa fa-caret-right"></i></a>
+		</td>
+
+									<td td="" rowspan="3" class="">Michael Mmoh <i class="icon-tb_ball"  style="color:rgba(153,0,77,1);">
+	                     </td>
+								</tr>
+											<tr style="height:10px">
+												<td colspan="2" nowrap="">
+													<a data-toggle="tooltip" data-placement="top" title="Tennis Brain's modeled probablity of the players winning the match.">
+														<div class="progress-bar progress-bar-one" role="progressbar" style="width:68%">
+	        68%
+	                          </div>
+														<div class="progress-bar progress-bar-two" role="progressbar" style="width:32%">
+	        32%
+	                          </div>
+													</a>
+												</td>
+											</tr>
+											<tr>
+
+
+												</tbody>
+						</table>
+
+						<p>Below the probablity bars are two sections, <span class="bluelink">Profile</span> and <span class="bluelink">Attributes</span>. These provide some additional comparative statistics which can be used to support your decision process.<p>
+						<p>Within the <span class="bluelink">Profile</span> section there are a number of subsections which can be opened by clicking on the <span class="bluelink">blue links</span>. These include the last 5 matches and head to head, as well as a chart comparing the players' ranking history.</p>
+						<p>The <span class="bluelink">Attributes</span> section displays a radar chart with some key comparative features:</p>
+						<ul>
+							<li><b>Win Rate</b> - The player's win rate.</li>
+							<li><b>Form</b> - The player's recent win rate used as an indicator of form.</li>
+							<li><b>Surface</b> - The player's win rate on the match surface.</li>
+							<li><b>Serve</b> - Winning % on serve.</li>
+							<li><b>Return</b> - Winning % on return.</li>
+							<li><b>Experience</b> - An indicator for players experience.</li>
+							<li><b>Reliablity</b> - An indicator for how reliable the outcome for the player is in terms of what has been predicted.</li>
+							<li><b>Common Op.</b> - Win rate over opponents that are common to both players.</li>
+							<li><b>Level Win Rate</b> - Win rate over similar ranked opponents.</li>
+							<li><b>Quality Form</b> - A measure of the quaility of the wins. ie winning against a player ranked 10 in the world counts more than winning against 50 in the rankings.</li>
+						</ul>
+
+					</div>
+    		</div>
+
+
+
+			<div class="btn-group">
+				<button button type="button" class="btn btn-default btn-pred dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Mens
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" >
+              {% for pred in pred_list_m %}
+
+					<li class="{% if forloop.first %} active {% endif %}" data-toggle="tab" href="#Mens{{ pred.grouper|RemoveSpecial }}">
+						<a>{{ pred.grouper }}</a>
+					</li>
+            {% empty %}
+            <li>No Matches</li>
+              {% endfor %}
+
+				</ul>
+			</div>
+			<div class="btn-group">
+				<button button type="button" class="btn btn-default btn-pred dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Womens
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" >
+          {% for pred in pred_list_w %}
+
+      <li class="{% if forloop.first %} active {% endif %}" data-toggle="tab" href="#Womens{{ pred.grouper|RemoveSpecial }}">
+        <a>{{ pred.grouper }}</a>
+      </li>
+      {% empty %}
+      <li>No Matches</li>
+          {% endfor %}
+				</ul>
+			</div>
+			<!-- <ul class="nav nav-tabs">
+  {% for pred in pred_list_m %}
+    <li class="{% if forloop.first %} active {% endif %}" data-toggle="tab" href="#{{ pred.grouper|cut:" " }}"><a  >{{ pred.grouper }}</a></li>
+  {% endfor %}
+</ul> -->
+			<div class=" tab-content">
+
+              {% for pred in pred_list %}
+
+				<div class="tab-pane fade {% if forloop.first %} in active {% endif %}" id="{{ pred.grouper|RemoveSpecial }}" role="tabpanel">
+					<table class="prediction-table" width="100%" >
+						<tr>
+							<thead>
+								<td style="display:none"></td>
+								<td colspan=5 class="title_head">{{ pred.grouper }}</td>
+							</thead>
+						</tr>
+						<tr>
+							<thead>
+								<td>Date</td>
+								<td>Player 1</td>
+								<td class="tool_tip" >
+									<a class="tool_tip" data-toggle="tooltip" data-placement="top" title="Latest available odds. These will be highlighted where the model sees value.">Player 1 Odds
+
+										<i class="fas fa-info-circle"></i>
+									</a>
+								</td>
+								<td class="tool_tip">
+									<a class="tool_tip" data-toggle="tooltip" data-placement="top" title="Latest available odds. These will be highlighted where the model sees value.">Player 2 Odds
+
+										<i class="fas fa-info-circle"></i>
+									</a>
+								</td>
+								<td>Player 2</td>
+							</tr>
+						</thead>
+						<tbody>
+                {% for match in pred.list|dictsort:"dateM" %}
+
+                          {% if match.p1Value == 1  %}
+                          {% define_var "highlightcell" as oddsOneClass %}
+                          {% else %}
+                          {% define_var "" as oddsOneClass %}
+                          {% endif %}
+
+                          {% if match.p2Value == 1 %}
+                          {% define_var "highlightcell" as oddsTwoClass %}
+                          {% else %}
+                          {% define_var "" as oddsTwoClass %}
+                          {% endif %}
+
+
+							<tr>
+								<td rowspan="3">{{ match.dateS}}</td>
+								<td rowspan="3" class="{{ oddsOneClass }}">{% if match.p1Value == 1 %}
+                  <i class="icon-tb_ball"  style="color:rgba(191,255,0,1);"> </i> {% endif %}
+                  {{ match.Player1 }}</td>
+                  {% if match.result != None %}
+                  								<td colspan="2" >
+                     {{ match.result }} 	</td>
+                {% else %}
+
+								<td rowspan="1" class="{{ oddsOneClass }}">
+                     <a href="http://wlmatchbook.adsrv.eacdn.com/C.ashx?btag=a_3256b_2932c_&affid=2111&siteid=3256&adid=2932&c=&asclurl=https://www.matchbook.com/events/{{ match.url|floatformat:0 }}"  target="Matchbook" >{{ match.p1Odds|FloatFormatTB:2  }} <i class="fa fa-caret-right"></i></a> </td>
+								<td rowspan="1" class="{{ oddsTwoClass }}">	<a href="http://wlmatchbook.adsrv.eacdn.com/C.ashx?btag=a_3256b_2932c_&affid=2111&siteid=3256&adid=2932&c=&asclurl=https://www.matchbook.com/events/{{ match.url|floatformat:0 }}"  target="Matchbook" >{{ match.p2Odds|FloatFormatTB:2  }} <i class="fa fa-caret-right"></i></a>
+	</td>
+	{% endif %}
+								<td td rowspan="3" class="{{ oddsTwoClass }}">{{ match.Player2 }}
+                  {% if match.p2Value == 1 %}
+                  <i class="icon-tb_ball"  style="color:rgba(153,0,77,1);"> </i> {% endif %}   </td>
+							</tr>
+										<tr style="height:10px">
+											<td colspan="2" nowrap>
+												<a  data-toggle="tooltip" data-placement="top"  title="Tennis Brain's modeled probablity of the players winning the match.">
+													<div class="progress-bar progress-bar-one" role="progressbar" style="width:{{ match.Probability_Player1|conpercent }}%">
+        {{ match.Probability_Player1|conpercent|floatformat:0 }}%
+                          </div>
+													<div class="progress-bar progress-bar-two" role="progressbar" style="width:{{ match.Probability_Player2|conpercent }}%">
+        {{ match.Probability_Player2|conpercent|floatformat:0 }}%
+                          </div>
+												</a>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="1" >
+												<a role="button" data-toggle="collapse" href="#{{ match.MatchID }}ps" class="intablink" aria-expanded="true" aria-controls="{{ match.MatchID }}" class="trigger collapsed" onclick='getstats({{ match.MatchID }})'>
+        Profile
+													<span class="caret">
+													</a>
+												</td>
+												<td colspan="1" >
+													<a role="button" data-toggle="collapse" href="#{{ match.MatchID }}spider" class="intablink" aria-expanded="true" aria-controls="{{ match.MatchID }}" class="trigger collapsed" onclick='getspider({{ match.MatchID }})'>
+  Attributes
+														<span class="caret">
+														</a>
+													</td>
+												</tr>
+												<tr>
+													<td colspan="5" >
+														<div id="{{ match.MatchID }}spider" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+														<div id="{{ match.MatchID }}ps" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+														<div id="{{ match.MatchID }}hhmatches" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+														<div id="{{ match.MatchID }}histrank" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+														<div id="{{ match.MatchID }}pastmatches" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+														<div id="{{ match.MatchID }}{{ match.ID_P1 }}pastmatches" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+														<div id="{{ match.MatchID }}{{ match.ID_P2 }}pastmatches" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" data-collapse-group="matchinfo">
+															<i class="fas fa-bug fa-spin"></i>
+														</div>
+													</td>
+												</tr>
+
+
+                              {% endfor %}
+
+											</tbody>
+										</table>
+									</div>
+
+                    {% empty %}
+
+                    <h4 style="margin-top:5px; color:white;">No Predictions</h4>
+
+                  {% endfor %}
+
+
+
+
+
+
+								</div>
+							</div>
+						</div>
+				</section>
+
+
+
+
+
+
+  {% endblock %}

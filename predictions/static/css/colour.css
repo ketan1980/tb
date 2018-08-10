@@ -2,22 +2,27 @@
 
 .top-nav-collapse {
 	background-color: 	rgba(255,255,255,0.95);
+
+	}
+
+
+
+
+
+
+
+.navbar-fixed-top /*colour for nav bar at the top of page before scrolling */
+{
+	background-color: 	rgba(255,255,255,0.95);
+
 }
 
-.navbar-nav  {
-	color: black !important;
-	background-color: 	rgba(191,255,0,0.7) !important;
-
-}
-.navbar-nav a {
-	color: black !important;
-
-}
 
 @media (max-width: 768px) {
   .navbar, .navbar-nav {
 		background-color: 	rgba(255,255,255,0.9) !important;
 	}
+
 
 
 
@@ -37,7 +42,7 @@ form#contact-form input:focus,form#contact-form select:focus,form#contact-form t
 }
 
 footer {
-    background-color: rgba(177,248,43,0.9);
+    background-color: rgba(0,0,0,0.8);
 }
 
 .btn-skin {

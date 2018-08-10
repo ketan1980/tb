@@ -1,0 +1,56 @@
+<div class="stats-container">
+
+  <table  class="playerstats_table profile_table" >
+    <tr>
+      <thead>
+        <td></td>
+<td>{{ stats.Player1 }}</td>
+        <td>{{ stats.Player2 }}</td>
+      </thead>
+    </tr>
+    <tr>
+    <tr>
+      <td>5 match form</td>
+      <td><a role="button" data-toggle="collapse" href="#{{ stats.MatchID }}{{ stats.ID_P1 }}pastmatches" class="intablink" aria-expanded="true" aria-controls="{{ stats.MatchID }}" class="trigger collapsed" onclick='getpastmatches({{ stats.MatchID }},{{ stats.ID_P1 }})'>
+      {{ stats.Last5matches_Player1 }}<span class="caret"></a></td>
+      <td><a role="button" data-toggle="collapse" href="#{{ stats.MatchID }}{{ stats.ID_P2 }}pastmatches" class="intablink" aria-expanded="true" aria-controls="{{ stats.MatchID }}" class="trigger collapsed" onclick='getpastmatches({{ stats.MatchID }},{{ stats.ID_P2 }})'>
+      {{ stats.Last5matches_Player2}}<span class="caret"></a></td>
+    </tr>
+  </table>
+</br>
+<table  id="pastmatches{{ matchid }}" class="playerstats_table h2h_table" >
+    <thead><tr>
+      <td>					<a role="button" data-toggle="collapse" href="#{{ matchid }}ps" class="intablink" aria-expanded="true" aria-controls="{{ matchid }}" class="trigger collapsed">
+              Back
+                                <span class="caret">
+                                </a></td>
+    <td colspan ="6">{{pm.first.Player1}} Previous 5 Matches</td></tr></thdead>
+    <tr>
+      <thead>
+        <td>Date</td>
+        <td>Opponent</td>
+<td>Tournament</td>
+<td>Surface</td>
+<td>Rank</td>
+<td>Opp Rank</td>
+        <td>Score</td>
+        <td>Winner</td>
+      </thead>
+    </tr>
+    {% for res in pm %}
+    <tr>
+      <td>{{res.DATE_R}}</td>
+      <td>{{res.Player2}}</td>
+      <td>{{res.NAME_T}}</td>
+      <td>{{res.NAME_C}}</td>
+      <td>{{res.p1pos}}</td>
+      <td>{{res.p2pos}}</td>
+      <td>{{res.RESULT_G}}</td>
+      <td class="{%if res.winloss == 1%}p1highlight{%else%}p2highlight{%endif%}">{%if res.winloss == 1%} {{res.Player1}} {%else%} {{res.Player2}} {%endif%}</td>
+    </tr>
+   {% endfor %}
+  </table>
+
+
+
+</div>

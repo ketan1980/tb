@@ -6,12 +6,12 @@
 
 
 <div class="chart-container">
-    <canvas id="spiderChart{{ stats.id }}"></canvas>
+    <canvas id="spiderChart{{ stats.MatchID }}"></canvas>
 </div>
 
 
 <script type="text/javascript">
-var spiderCanvas = document.getElementById("spiderChart{{ stats.id }}");
+var spiderCanvas = document.getElementById("spiderChart{{ stats.MatchID }}");
 
 
 var chartColors = {
@@ -21,37 +21,43 @@ var chartColors = {
 	green: 'rgb(75, 192, 192)',
 	blue: 'rgb(54, 162, 235)',
 	purple: 'rgb(153, 102, 255)',
-	grey: 'rgb(231,233,237)'
+	grey: 'rgb(231,233,237)',
+  pink: 'rgb(153,0,77)'//used in original site
 };
 
-var p_onepoints = {{ stats.p1point }}/({{ stats.p1point }}+{{ stats.p2point }})
-var p_one_height = {{ stats.p1height }}/({{ stats.p1height }}+{{ stats.p2height }})
-var p_one_age = {{ stats.p1age }}/({{ stats.p1age }}+{{ stats.p2age }})
-var p_one_matches = {{ stats.acumlative_matches}}/({{ stats.acumlative_matches }}+{{ stats.acumlative_matches_opponent }})
-var p_one_wrate = {{ stats.winrate}}/({{ stats.winrate }}+{{ stats.winratevopponent }})
-var p_one_wrate30 = {{ stats.winrate30}}/({{ stats.winrate30 }}+{{ stats.winrate30_opponent }})
-var p_one_swrate = {{ stats.winrate_surface}}/({{ stats.winrate_surface }}+{{ stats.winrate_surface_opponent }})
-var p_one_twon = {{ stats.tournamentswon}}/({{ stats.tournamentswon }}+{{ stats.tournamentswon_opponent }})
-var p_one_sp30 = {{ stats.servepointsrate30}}/({{ stats.servepointsrate30 }}+{{ stats.servepointsrate30_opponent }})
+var p_one_win = {{ stats.WinRate_Player1 }}
+var p_one_surface = {{ stats.SurfaceWinRate_Player1 }}
+var p_one_form = {{ stats.RecentForm_Player1 }}
+var p_one_serve = {{ stats.ServeForm_Player1 }}
+var p_one_return = {{ stats.ReturnForm_Player1}}
+var p_one_exp = {{ stats.Experience_Player1}}/({{ stats.Experience_Player1}}+{{ stats.Experience_Player2}})
+var p_one_reliab = {{ stats.Reliability_Player1}}
+var p_one_co = {{ stats.CommonOpponent_Player1}}
+var p_one_wrsimrank = {{ stats.WinRateOpponentquality_Player1}}
+var p_one_qform = {{ stats.QualityForm_Player1}}/({{ stats.QualityForm_Player1}} +{{ stats.QualityForm_Player2}})
 
-var p_twopoints = {{ stats.p2point }}/({{ stats.p1point }}+{{ stats.p2point }})
-var p_two_height = {{ stats.p2height }}/({{ stats.p1height }}+{{ stats.p2height }})
-var p_two_age = {{ stats.p2age }}/({{ stats.p1age }}+{{ stats.p2age }})
-var p_two_matches = {{ stats.acumlative_matches_opponent }}/({{ stats.acumlative_matches }}+{{ stats.acumlative_matches_opponent }})
-var p_two_wrate = {{ stats.winratevopponent}}/({{ stats.winrate }}+{{ stats.winratevopponent }})
-var p_two_wrate30 = {{ stats.winrate30_opponent}}/({{ stats.winrate30 }}+{{ stats.winrate30_opponent }})
-var p_two_swrate = {{ stats.winrate_surface_opponent }}/({{ stats.winrate_surface }}+{{ stats.winrate_surface_opponent }})
-var p_two_twon = {{ stats.tournamentswon_opponent}}/({{ stats.tournamentswon }}+{{ stats.tournamentswon_opponent }})
-var p_two_sp30 = {{ stats.servepointsrate30_opponent}}/({{ stats.servepointsrate30 }}+{{ stats.servepointsrate30_opponent }})
 
-var p_one_d = [p_onepoints, p_one_height, p_one_age, p_one_matches, p_one_wrate, p_one_wrate30, p_one_swrate, p_one_twon, p_one_sp30];
-var p_two_d = [p_twopoints, p_two_height, p_two_age, p_two_matches, p_two_wrate, p_two_wrate30, p_two_swrate, p_two_twon, p_two_sp30];
+var p_two_win = {{ stats.WinRate_Player2 }}
+var p_two_surface = {{ stats.SurfaceWinRate_Player2 }}
+var p_two_form = {{ stats.RecentForm_Player2 }}
+var p_two_serve = {{ stats.ServeForm_Player2 }}
+var p_two_return = {{ stats.ReturnForm_Player2}}
+var p_two_exp = {{ stats.Experience_Player2}}/({{ stats.Experience_Player1}}+{{ stats.Experience_Player2}})
+var p_two_reliab = {{ stats.Reliability_Player2}}
+var p_two_co = {{ stats.CommonOpponent_Player2}}
+var p_two_wrsimrank = {{ stats.WinRateOpponentquality_Player2}}
+var p_two_qform = {{ stats.QualityForm_Player2}}/({{ stats.QualityForm_Player1}} +{{ stats.QualityForm_Player2}})
+
+var p_one_d = [p_one_win,  p_one_surface, p_one_form, p_one_serve, p_one_return, p_one_exp, p_one_reliab, p_one_co, p_one_wrsimrank, p_one_qform];
+var p_two_d = [p_two_win,  p_two_surface, p_two_form, p_two_serve, p_two_return, p_two_exp, p_two_reliab, p_two_co, p_two_wrsimrank, p_two_qform];
+
 
 var data = {
-  labels: ["Rankng Points", "Height", "Age", "Tot. Matches", "Win Rate", "30d Win Rate", "Surface Win Rate", "Tournaments Won", "30d Win Serve Rate"],
+  labels: ["Win Rate", "Surface", "Form", "Serve", "Return", "Experience", "Reliablity", "Common Op","Level Win Rate","Quality Form"],
   datasets: [{
     label: "{{ stats.Player1 }}",
-    backgroundColor: "rgba(191,255,0,0.2)",
+    lineTension: 0.35,
+    backgroundColor: "rgba(191,255,0,0.1)",
     borderColor: "rgba(191,255,0,1)",
     borderWidth: 2,
     hoverBackgroundColor: "rgba(191,255,0,0.5)",
@@ -61,11 +67,12 @@ var data = {
   ,
   {
     label: "{{ stats.Player2 }}",
-    backgroundColor: "rgba(153,0,77,0.2)",
+    lineTension: 0.35,
+    backgroundColor: "rgba(153,0,77,0.4)",
     borderColor: "rgba(153,0,77,1)",
     borderWidth: 2,
-    hoverBackgroundColor: "rgba(153,0,77,0.5)",
-    hoverBorderColor: "rgba(153,0,77,1)",
+    hoverBackgroundColor: "rgba(54,162,235,0.5)",
+    hoverBorderColor: "rgba(54,162,235,1)",
     data: p_two_d,
   }
   ]
@@ -78,12 +85,14 @@ var options = {
   scale: {
           ticks: {
               display: false,
-               maxTicksLimit: 5
+               maxTicksLimit: 5,
+               max: 1,
+               min: 0
           },
 
           pointLabels: {
             fontColor: 'rgba(255, 255, 255,1)',// labels around the edge like 'Running'
-            fontSize: 12
+            fontWeight: 600
           },
       gridLines: { color: 'rgba(255, 255, 255,0.2)' },
 

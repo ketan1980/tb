@@ -61,3 +61,59 @@ $('.dropdown-menu li').click(function () {
 	});
 
 })(jQuery);
+
+//get spider pages
+function getspider(pk) {
+  pk = pk
+  $.ajax({
+    url: 'spider/' + pk,
+    success: function(data) {
+      $('#' + pk + 'spider').html(data);
+    }
+  });
+};
+
+
+//get stats pages
+function getstats(pk) {
+  pk = pk
+  $.ajax({
+    url: 'player_stats/' + pk,
+    success: function(data) {
+      $('#' + pk + 'ps').html(data);
+    }
+  });
+};
+
+//get HH matches
+function gethhmatches(pk) {
+  pk = pk
+  $.ajax({
+    url: 'hhmatches/' + pk,
+    success: function(data) {
+      $('#' + pk + 'hhmatches').html(data);
+    }
+  });
+};
+
+//get Hist Rank
+function gethrank(pk) {
+  pk = pk
+  $.ajax({
+    url: 'histrank/' + pk,
+    success: function(data) {
+      $('#' + pk + 'histrank').html(data);
+    }
+  });
+};
+
+//get last matches  the hidden div needs the matchid and playerid
+function getpastmatches(pk, pid) {
+  pk = pk
+  $.ajax({
+    url: 'pastmatches/' + pk + '/' + pid,
+    success: function(data) {
+      $('#' + pk + pid + 'pastmatches').html(data);
+    }
+  });
+};

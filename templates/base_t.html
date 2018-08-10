@@ -3,18 +3,15 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-			<meta name="viewport" content="width=device-width" />
-			<meta name="keywords" content="atp, wta, tennis predictions, tennis betting, live tennis scores, tennis scores, tennis results, tennis rankings, atp tennis, french open">
-				<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1"/>
-				<title>Tennis Brain |</title>
+		{% block meta_headings %}
+		<!-- /Section: prediction-->
+		{% endblock %}
 
-		<meta charset="utf-8">
 			<meta name="viewport" content="width=device-width" />
-			<meta name="keywords" content="atp, wta, tennis predictions, tennis betting, live tennis scores, tennis scores, tennis results, tennis rankings, atp tennis, french open">
-				<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1"/>
-				<title>Tennis Brain |</title>
+			<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=1"/>
+
 				<link rel="icon" href="{% static '/img/fav.png' %}" type="image/png" sizes="16x16">
-					<title>Tennis Brain</title>
+
 					<!-- All in One SEO Pack 2.3.12.2.1 by Michael Torbert of Semper Fi Web Design[587,607] -->
 					<link rel="canonical" href="https://tennisbrain.com/" />
 					<!-- /all in one seo pack -->
@@ -60,10 +57,11 @@
 	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
     <div class="container">
 			<div class="navbar-header page-scroll">
+
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
 										<i class="fa fa-bars"></i>
 								</button>
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="/">
 					<img src="{% static '/img/logo.png' %}" >
 				</a>
 
@@ -71,10 +69,9 @@
 
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#intro">Home</a></li>
+        <ul class="nav navbar-nav tbrain">
           <li><a href="#about">About</a></li>
-          <li><a href="#predictions">Predictions</a></li>
+          <li class="active"><a  href="#predictions">Predictions</a></li>
         <!--  <li><a href="#contact">Contact</a></li>-->
         </ul>
       </div>
@@ -99,11 +96,11 @@
                 <h2>About us</h2>
                 <i class="fa fa-2x fa-angle-down"></i>
 								<div style="text-align:left">
-								<p>The only way to make money from trading, be it in property, equity, forex or sports is to identify value! But unlike other trading markets, tennis is not influenced by economic factors and only reliant on the skills and mental strength of the two players on court, and therefore data driven strategies can have larger effects on returns.</p>
-								<p> And that is exactly what TennisBrain does. There is no point trading on matches where the outcome has a 90% chance of occurring if the market is pricing it at 1.05 (95%). You may win 9 times out of 10, but the 1 time you lose will move you into a losing position. Identifying value accurately is the key to making returns on tennis.</p>
-								<p> We use data-led algorithms to predict over 90% of ATP and WTA Singles Tour tennis matches, providing users with the world's most sophisticated insight on betting markets. Utilising millions of historical data points (and growing by the day), our model compiles data on a huge range of key attributes, identifying hidden advantages to accurately predict the outcome of any given match and isolate value from betting markets. From height, form, age, surface, head to heads, games and sets played previously, to even average service speed in the last 3 months, we have it covered.</p>
-								<p> Consistently achieving over a 13% return across recommended trades, TennisBrain adds the power of data to tennis trading.
-								</p>
+								<p style="font-weight:bolder;">PROVIDING DATA-LED FORESIGHT ON PROFESSIONAL TENNIS MATCHES</p>
+								<p>Our purpose is to provide Tennis Brainers the tools and insights to make smarter decisions on their tennis trades. Our models compile data on a huge range of key attributes to unlock hidden advantages and isolate value in the betting markets. From surface, form, age, previous meetings, service speed, to height and weight, we collect and construct hundreds of features that are systematically utilised to build the most accurate predictions on the market.  With player level attributes, live pricing and insightful visualisations on meaningful statistics, Tennis Brain adds the power of data and machine learning to tennis trading.</p>
+<p>Our algorithms are constantly updated to incorporate new data feeds and trends to consistently achieve returns as the markets and tour evolve. All our predictions are currently free to access, and we are developing to further expand our markets to include set and game scores, providing additional and potentially bigger opportunities within the tennis betting markets. We hope you enjoy the site and make the most of what we believe is an essential tool to successful tennis trading.
+ </p>
+
 							</div>
               </div>
             </div>
@@ -187,22 +184,14 @@
   <script src="{% static '/js/jquery.easing.min.js' %}"></script>
   <script src="{% static '/js/jquery.scrollTo.js' %}"></script>
 	<script src="{% static '/js/wow.min.js' %}"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+	<script src="{% static '/js/Chart.min.js' %}"></script>
+	<script src="{% static '/js/hammer.min.js' %}"></script>
+	<script src="{% static '/js/chartjs-plugin-zoom.min.js' %}"></script>
+	
+
 
   <!-- Custom Theme JavaScript -->
 	<script src="{% static '/js/custom.js' %}"></script>
-
-	<script type="text/javascript">
-	        function getspider(pk) {
-	          pk = pk
-	          $.ajax({
-	            url: 'spider/' + pk,
-	            success: function(data) {
-	              $('#' + pk).html(data);
-	            }
-	          });
-	        };
-	</script>
 
 </body>
 

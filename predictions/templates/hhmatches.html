@@ -1,0 +1,51 @@
+<div class="stats-container">
+
+  <table  class="playerstats_table profile_table" >
+    <tr>
+      <thead>
+        <td></td>
+<td>{{ stats.Player1 }}</td>
+        <td>{{ stats.Player2 }}</td>
+      </thead>
+    </tr>
+    <tr>
+      <td>Head to Head</td>
+      <td>{{ stats.Head2HeadWins_Player1 }}</td>
+      <td>{{ stats.Head2HeadWins_Player2 }}</td>
+    </tr>
+  </table>
+</br>
+<table  id="hhmatches{{ matchid }}" class="playerstats_table h2h_table" >
+    <thead><tr>
+      <td>					<a role="button" data-toggle="collapse" href="#{{ matchid }}ps" class="intablink" aria-expanded="true" aria-controls="{{ matchid }}" class="trigger collapsed">
+              Back
+                                <span class="caret">
+                                </a></td>
+    <td colspan ="6">Head to heads (Previous 5)</td></tr></thdead>
+    <tr>
+      <thead>
+        <td>Date</td>
+<td>Tournament</td>
+<td>Surface</td>
+<td>P1 Rank</td>
+<td>P2 Rank</td>
+        <td>Score</td>
+        <td>Winner</td>
+      </thead>
+    </tr>
+    {% for res in h2h %}
+    <tr>
+      <td>{{res.DATE_R}}</td>
+      <td>{{res.NAME_T}}</td>
+      <td>{{res.NAME_C}}</td>
+      <td>{{res.p1pos}}</td>
+      <td>{{res.p2pos}}</td>
+      <td>{{res.RESULT_G}}</td>
+      <td class="{%if res.winloss == 1%}p1highlight{%else%}p2highlight{%endif%}">{%if res.winloss == 1%} {{res.Player1}} {%else%} {{res.Player2}} {%endif%}</td>
+    </tr>
+   {% endfor %}
+  </table>
+
+
+
+</div>
